@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* [상단 헤더 영역] */
+header {
+  width: 100%;
+  border-bottom: 2px solid #333;
+  padding: 20px 0;
+  text-align: center;
+  background-color: #fff;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* 그림 속 로고/홈 버튼 형태의 작은 박스 */
+.header-logo {
+  display: inline-block;
+  border: 2px solid #333;
+  padding: 5px 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+/* [중앙 콘텐츠 영역 - 친구, 연인, 가족 버튼] */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* 버튼 사이 간격 */
+  padding: 40px;
+}
+
+/* 폴더/서류 모양을 형상화한 버튼 스타일 */
+.folder-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  text-decoration: none; /* 링크 밑줄 제거 */
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 4px 4px 0px #333;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* 그림 속 상단 탭 모양 흉내내기 */
+.folder-btn::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 15px;
+  width: 40px;
+  height: 10px;
+  border: 2px solid #333;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background-color: #fff;
+}
+
+/* 버튼 호버 효과 (마우스 올렸을 때) */
+.folder-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #333;
+  background-color: #f0f0f0;
+}
+
+/* 버튼 클릭 효과 */
+.folder-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #333;
+}
+
+/* [하단 푸터 영역] */
+footer {
+  width: 100%;
+  border-top: 2px solid #333;
+  padding: 15px 20px;
+  background-color: #fff;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.creators {
+  color: #555;
+  word-spacing: 10px; /* 만든 이 명단 사이 공백 조절 */
+}
