@@ -1,39 +1,75 @@
 /* ==========================================================================
-   1. 공통 기본 스타일 & 배경 설정
+   0. 갈무리 웹폰트 패키지 가져오기 & 전역 픽셀 렌더링 설정
    ========================================================================== */
+@import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  font-family: "Galmuri11", "Galmuri9", sans-serif !important;
+
+  /* 픽셀 뭉개짐 방지 */
+  font-smooth: never !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: none !important;
+  text-rendering: crispEdges !important;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: "Malgun Gothic", sans-serif;
-  overflow: hidden; /* 화면 전체 스크롤을 막고 내부 스크롤 유도 */
-
-  /* 배경 설정 */
-  background-image: url("배경.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+input,
+button,
+select,
+textarea {
+  font-size: inherit;
 }
 
 /* ==========================================================================
-   2. [발표준비.html] 전용 - 상단 메뉴바 & 하단 푸터 레이아웃
+   1. 공통 기본 스타일 & 배경 고정 + 스크롤바 숨기기
+   ========================================================================== */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("배경.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+}
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* ==========================================================================
+   2. 상단 메뉴바 (GW.html과 서브페이지 유연한 동시 대응 정렬)
    ========================================================================== */
 .navbar {
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
+  background: linear-gradient(90deg, #ffe5ec 0%, #ffc2d1 100%);
+  box-shadow: 4px 4px 0px rgba(255, 182, 193, 0.6);
+  padding: 0;
+  height: 85px; /* 로고 확대 높이 유지 */
   display: flex;
-  justify-content: center;
+  justify-content: center; /* 로고 유무 상관없이 무조건 화면 가로 중앙 정렬 */
   align-items: center;
   position: fixed;
   top: 0;
@@ -41,54 +77,90 @@ body {
   z-index: 1000;
 }
 
+/* 🚀 로고 구조가 없는 GW.html에서도 자식 메뉴들이 깨지지 않도록 유연한 flexible 설정 */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: auto; /* 고정 크기 해제하여 유동적으로 중앙 정렬 */
+}
+
+/* 헤더 맨 왼쪽 로고 영역 */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  margin-right: 25px; /* 로고와 첫 메뉴 사이의 간격 */
+}
+
+.nav-logo img {
+  height: 100%;
+  width: auto;
+  display: block;
+  image-rendering: pixelated;
+  margin-top: 1px;
+}
+
 .nav-menu {
   display: flex;
   align-items: center;
+  justify-content: center; /* 🚀 GW.html 단독 사용 시 중앙 배치 강제 보장 */
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .nav-item a {
   text-decoration: none;
-  color: #333333;
+  color: #4a3b32;
   font-size: 18px;
   font-weight: bold;
-  padding: 0 20px;
+  padding: 0 15px;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .nav-item a:hover {
-  color: #007bff;
+  color: #ff4d6d;
 }
 
 .nav-item:not(:last-child)::after {
   content: "|";
-  color: #ccc;
+  color: #ffb3c1;
   font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
-/* 메인 본문 */
+/* ==========================================================================
+   3. 메인 콘텐츠 및 서브페이지 레이아웃 (가려짐 현상 수정)
+   ========================================================================== */
 .main-content {
   flex: 1;
-  margin-top: 56px;
+  margin-top: 110px; /* 🚀 헤더(85px) 하단 여백을 주어 타이틀 가려짐 문제 영구 해결 */
   margin-bottom: 120px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 0;
+  padding: 40px 20px;
   box-sizing: border-box;
 }
 
 .intro-section {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .intro-title {
@@ -96,6 +168,7 @@ body {
   font-weight: bold;
   color: #222222;
   margin: 0 0 15px 0;
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
 }
 
 .intro-subtitle {
@@ -108,16 +181,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
   width: 100%;
   max-width: 1600px;
-  padding: 0 40px;
+  padding: 0 20px;
   box-sizing: border-box;
 }
 
 .folder-item {
   display: block;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .folder-item:hover {
@@ -125,18 +199,51 @@ body {
 }
 
 .folder-item img {
-  width: 450px;
-  height: 450px;
+  width: 450px !important;
+  height: 450px !important;
+  max-width: none !important;
   object-fit: contain;
   display: block;
 }
 
-/* 고정 푸터 스타일 */
+.bg-brand-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 120px;
+  margin-bottom: 40px;
+  padding: 30px 40px;
+  gap: 35px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  box-shadow: 5px 5px 0px rgba(255, 182, 193, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.bg-brand-logo {
+  width: 110px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.bg-brand-text {
+  text-align: left;
+  font-size: 20px;
+  line-height: 1.9;
+  color: #2c2520;
+  word-break: keep-all;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
 .footer {
   width: 100%;
   height: 120px;
-  background-color: #ffffff;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+  box-shadow: 0 -5px 0px rgba(255, 182, 193, 0.4);
   padding: 0 30px;
   display: flex;
   align-items: center;
@@ -148,43 +255,37 @@ body {
   z-index: 1000;
 }
 
-/* 🚀 [핵심 수정] 이스터에그 반응형 컨테이너 구조 */
 .easter-egg-container {
   position: relative;
-  height: 100%; /* 푸터 높이에 100% 맞춤 */
+  height: 100%;
   display: inline-block;
   margin-right: 25px;
 }
 
 .easter-egg-img {
-  height: 100%; /* 이미지 비율 유지하며 푸터 꽉 채우기 */
+  height: 100%;
   width: auto;
   display: block;
 }
 
-/* 투명 클릭 영역 공통 스타일 */
 .egg-link {
   position: absolute;
-  border-radius: 50%; /* 클릭 영역을 둥글게 */
-  /* background-color: rgba(255, 0, 0, 0.3); */ /* 👈 주석(//)을 풀면 클릭 영역을 눈으로 보면서 테스트할 수 있어요! */
+  border-radius: 50%;
   cursor: pointer;
 }
 
-/* 원본 이미지(800x600)의 비율을 완벽히 계산한 백분율(%) 위치값 */
 .link-star {
   top: 21%;
   left: 23%;
   width: 16%;
   height: 22%;
 }
-
 .link-heart {
   top: 51%;
   left: 10%;
   width: 20%;
   height: 24%;
 }
-
 .link-clover {
   top: 43%;
   left: 72%;
@@ -194,39 +295,80 @@ body {
 
 .footer-info {
   font-size: 28px;
-  color: #333333;
+  color: #4a3b32;
   font-weight: bold;
 }
 
 /* ==========================================================================
-   3. [page1.html ~ page3.html] 전용 서브페이지 레이아웃
+   4. [가족/연인/친구.html] 서브페이지 전용 레이아웃 
    ========================================================================== */
 .page-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 40px;
+  padding: 130px 40px 40px 40px;
   box-sizing: border-box;
-  gap: 30px;
+  overflow-y: auto;
 }
 
 .page-container .main-content {
-  flex: 3;
-  background-color: rgba(206, 246, 228, 0.9);
+  flex: none;
+  width: 90% !important;
+  max-width: 950px !important;
+  height: auto !important;
+  margin-top: 0px !important; /* 서브페이지 민트 박스 상단 밀림 방지 초기화 */
+
+  background-color: rgba(206, 246, 228, 0.35) !important;
+  backdrop-filter: blur(4px);
+
   border-radius: 20px;
+  box-shadow: 6px 6px 0px rgba(160, 220, 195, 0.4);
   padding: 40px;
+
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  margin: 0;
-  overflow-y: auto;
+  gap: 30px;
+  margin: 0 auto 40px auto;
+
+  position: relative;
+}
+
+/* 민트색 창 왼쪽에 나란히 서 있게 정렬하는 베이스 코드 */
+.page-top-left-icon {
+  position: absolute;
+  top: 0px;
+  transform: translateX(-110%);
+  left: 0;
+  z-index: 50;
+}
+
+.page-top-left-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* 가족, 친구 png 가로 크기 182px, 연인 png 크기 325px */
+.icon-family {
+  width: 182px !important;
+}
+.icon-friend {
+  width: 182px !important;
+}
+.icon-couple {
+  width: 325px !important;
 }
 
 .game-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 20px;
 }
 
@@ -237,6 +379,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .card-container {
@@ -255,45 +398,78 @@ body {
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  color: #ffffff;
-  font-size: 20px;
+  color: #ffffff !important;
+  font-size: 19px;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 5px 5px 0px #e28cae;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  padding: 0 15px;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .pink-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 9px 9px 0px #e28cae;
+}
+
+.pink-card:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0px #e28cae;
 }
 
 .more-arrow {
   font-size: 24px;
   color: #333333;
   margin-top: 5px;
-}
-
-.right-sidebar {
-  flex: 1;
-  max-width: 300px;
-  background-color: rgba(206, 246, 228, 0.9);
-  border-radius: 20px;
-  padding: 40px 30px;
-}
-
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.sidebar-link {
-  text-decoration: none;
-  color: #000000;
-  font-size: 24px;
   font-weight: bold;
-  transition: color 0.2s;
 }
 
-.sidebar-link:hover {
-  color: #f7a1c4;
+/* ==========================================================================
+   5. 귀염뽀짝.png 아이콘 스타일 (그리드 레이아웃)
+   ========================================================================== */
+.cute-bottom-image {
+  position: relative;
+  width: 280px !important;
+  height: 110px !important;
+  margin: 50px auto 180px auto;
+  display: block;
+  flex-shrink: 0;
+  z-index: 999999 !important;
+}
+
+.cute-bottom-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.cute-btn {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 25% !important;
+  display: block;
+  cursor: pointer;
+  z-index: 9999999 !important;
+  background: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-1 {
+  left: 0%;
+}
+.btn-2 {
+  left: 25%;
+}
+.btn-3 {
+  left: 50%;
+}
+.btn-4 {
+  left: 75%;
 }
