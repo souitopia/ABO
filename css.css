@@ -1,5 +1,4 @@
-/*0. 갈무리 웹폰트 패키지 가져오기 & 전역 픽셀 렌더링 설정
-========================================================================== */
+/*0. 갈무리 웹폰트 패키지*/
 @import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
 
 * {
@@ -9,7 +8,6 @@
 
   font-family: "Galmuri11", "Galmuri9", sans-serif !important;
 
-  /* 픽셀 뭉개짐 방지 */
   font-smooth: never !important;
   -webkit-font-smoothing: none !important;
   -moz-osx-font-smoothing: none !important;
@@ -24,7 +22,7 @@ textarea {
 }
 
 /* ==========================================================================
-   1. 공통 기본 스타일 & 배경 고정 + 스크롤바 숨기기
+   1. 공통 기본 스타일 
    ========================================================================== */
 body {
   margin: 0;
@@ -59,16 +57,16 @@ body::before {
 }
 
 /* ==========================================================================
-   2. 상단 메뉴바 (GW.html과 서브페이지 유연한 동시 대응 정렬)
+   2. 메뉴바 / 네비게이션바
    ========================================================================== */
 .navbar {
   width: 100%;
   background: linear-gradient(90deg, #ffe5ec 0%, #ffc2d1 100%);
   box-shadow: 4px 4px 0px rgba(255, 182, 193, 0.6);
   padding: 0;
-  height: 85px; /* 로고 확대 높이 유지 */
+  height: 85px;
   display: flex;
-  justify-content: center; /* 로고 유무 상관없이 무조건 화면 가로 중앙 정렬 */
+  justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
@@ -76,22 +74,20 @@ body::before {
   z-index: 1000;
 }
 
-/* 🚀 로고 구조가 없는 GW.html에서도 자식 메뉴들이 깨지지 않도록 유연한 flexible 설정 */
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: auto; /* 고정 크기 해제하여 유동적으로 중앙 정렬 */
+  width: auto;
 }
 
-/* 헤더 맨 왼쪽 로고 영역 */
 .nav-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
   height: 100%;
-  margin-right: 25px; /* 로고와 첫 메뉴 사이의 간격 */
+  margin-right: 25px;
 }
 
 .nav-logo img {
@@ -105,7 +101,7 @@ body::before {
 .nav-menu {
   display: flex;
   align-items: center;
-  justify-content: center; /* 🚀 GW.html 단독 사용 시 중앙 배치 강제 보장 */
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -144,11 +140,11 @@ body::before {
 }
 
 /* ==========================================================================
-   3. 메인 콘텐츠 및 서브페이지 레이아웃 (가려짐 현상 수정)
+   3. 메인 콘텐츠 및 서브페이지
    ========================================================================== */
 .main-content {
   flex: 1;
-  margin-top: 110px; /* 🚀 헤더(85px) 하단 여백을 주어 타이틀 가려짐 문제 영구 해결 */
+  margin-top: 110px;
   margin-bottom: 85px;
   display: flex;
   flex-direction: column;
@@ -240,7 +236,7 @@ body::before {
 
 .footer {
   width: 100%;
-  height: 85px; /* 헤더와 동일 */
+  height: 85px;
   background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
   box-shadow: 0 -5px 0px rgba(255, 182, 193, 0.4);
 
@@ -276,7 +272,6 @@ body::before {
   z-index: 10;
 }
 
-/* ⭐ 별 → 가족.html */
 .link-star {
   top: 16%;
   left: 24%;
@@ -284,7 +279,6 @@ body::before {
   height: 22%;
 }
 
-/* ❤️ 하트 → 연인.html */
 .link-heart {
   top: 51%;
   left: 5%;
@@ -292,7 +286,6 @@ body::before {
   height: 31%;
 }
 
-/* 🍀 클로버 → 친구.html */
 .link-clover {
   top: 42%;
   left: 70%;
@@ -306,28 +299,25 @@ body::before {
 }
 
 /* ==========================================================================
-   4. [가족/연인/친구.html] 서브페이지 전용 레이아웃 
+   4. [가족/연인/친구.html] 서브페이지 전용 
    ========================================================================== */
-/* [가족/연인/친구.html] 서브페이지 전용 레이아웃 수정 */
-/* 서브페이지 본문 전체 컨테이너 수정 */
+
 .page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  /* 🚀 중요: 130px(헤더) + 120px(푸터) 정도로 여백을 충분히 줍니다 */
   padding: 130px 40px 150px 40px;
   box-sizing: border-box;
   overflow-y: auto;
 }
 
-/* 귀염뽀짝 아이콘과 푸터 사이의 간격 조정 */
 .cute-bottom-image {
   position: relative;
   width: 280px !important;
   height: 110px !important;
-  margin: 50px auto 20px auto; /* 마지막 아이콘 아래 여백을 살짝 줍니다 */
+  margin: 50px auto 20px auto;
   display: block;
   flex-shrink: 0;
   z-index: 100;
@@ -337,7 +327,7 @@ body::before {
   width: 90% !important;
   max-width: 950px !important;
   height: auto !important;
-  margin-top: 0px !important; /* 서브페이지 민트 박스 상단 밀림 방지 초기화 */
+  margin-top: 0px !important;
 
   background-color: rgba(206, 246, 228, 0.35) !important;
   backdrop-filter: blur(4px);
@@ -357,7 +347,6 @@ body::before {
   position: relative;
 }
 
-/* 민트색 창 왼쪽에 나란히 서 있게 정렬하는 베이스 코드 */
 .page-top-left-icon {
   position: absolute;
   top: 0px;
@@ -373,7 +362,6 @@ body::before {
   image-rendering: pixelated;
 }
 
-/* 가족, 친구 png 가로 크기 182px, 연인 png 크기 325px */
 .icon-family {
   width: 182px !important;
 }
@@ -448,18 +436,15 @@ body::before {
 }
 
 /* ==========================================================================
-   5. 귀염뽀짝.png 아이콘 스타일 (수정본)
-   ========================================================================== */
+   5. 귀염뽀짝 관련 CSS 코드
+   ========================================================================== */
 .cute-bottom-image {
   position: relative;
   width: 280px !important;
   height: 110px !important;
-  /* 1. 마진을 조정하여 푸터 영역으로 아이콘이 충분히 들어오게 함 */
   margin: 50px auto 0 auto;
   display: block;
   flex-shrink: 0;
-
-  /* 2. 푸터(z-index: 1000)보다 낮게 설정하여 푸터 밑으로 깔리게 함 */
   z-index: 100;
 }
 
@@ -467,7 +452,6 @@ body::before {
   width: 100%;
   height: auto;
   display: block;
-  /* 3. 푸터 뒤에 있는 아이콘이 클릭되지 않도록 설정 */
   pointer-events: auto;
   image-rendering: pixelated;
 }
@@ -479,7 +463,6 @@ body::before {
   width: 25% !important;
   display: block;
   cursor: pointer;
-  /* 4. 푸터에 가려진 부분은 클릭이 안 되도록 z-index를 낮게 유지 */
   z-index: 10;
   background: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
@@ -502,7 +485,6 @@ body::before {
     filter 0.3s ease;
 }
 
-/* 마우스를 올리면 이미지가 살짝 커지고 밝아짐 */
 .cute-bottom-image:hover {
   transform: translateY(-5px);
   filter: brightness(1.1);
